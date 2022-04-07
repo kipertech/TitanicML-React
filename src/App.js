@@ -3,8 +3,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import {
     View,
-    Text,
-    TouchableOpacity
+    Text
 } from './components';
 import * as dfd from 'danfojs';
 import DataDescription from "./section_data_description";

@@ -12,7 +12,8 @@ export default function SurvivedDistribution(props)
 
     const [totalDF, setTotalDF] = useState(null);
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         let survivedCount = df['Survived'].values.filter((item) => Number(item) === 1).length,
             notSurvivedCount = df.shape[0] - 1 - survivedCount;
 

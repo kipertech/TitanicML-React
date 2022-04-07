@@ -9,7 +9,8 @@ export default function DataDescription(props)
 {
     const { df, testDF } = props;
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         const rowToTake = 2;
 
         const headerStyle = {
@@ -76,7 +77,7 @@ export default function DataDescription(props)
 
             {/* Code Block */}
             <CodeBlock
-                text={codeBlock.replace(/        /g, '')}
+                text={codeBlock.replace(/ {8}/g, '')}
                 language={'javascript'}
                 showLineNumbers={true}
                 startingLineNumber={1}

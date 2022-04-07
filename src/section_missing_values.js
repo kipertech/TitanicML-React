@@ -16,7 +16,8 @@ export default function MissingData(props)
 
     const [totalDF, setTotalDF] = useState([]);
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         let rawColumns = df.ctypes.index,
             missingCountArr = rawColumns.map((colName) => df[colName].isNa().values.filter((value) => value).length);
 
@@ -25,7 +26,8 @@ export default function MissingData(props)
             dataArr = [],
             totalMissingArr = [];
 
-        missingCountArr.forEach((count, index) => {
+        missingCountArr.forEach((count, index) =>
+        {
             if (count > 1)
             {
                 indexArr.push(rawColumns[index]);

@@ -8,7 +8,8 @@ const GLOBAL = require('./configs/config_global');
 
 export default function FeatureAnalysis(props)
 {
-    useEffect(() => {
+    useEffect(() =>
+    {
         const { df } = props;
 
         // Age vs. Survival Rate
