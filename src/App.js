@@ -14,10 +14,20 @@ import Lottie from 'react-lottie';
 
 import LoadingLottie from './lotties/lottie_searching.json';
 
+import { setGlobalState, useGlobalState } from './configs/config_state';
 const GLOBAL = require('./configs/config_global');
 
 function App()
 {
+    // region Responsive Design
+    const [windowWidth] = useGlobalState('windowWidth');
+
+    const updateDimensions = () => {
+        setGlobalState('windowWidth', window.innerWidth);
+        setGlobalState('windowHeight', window.innerHeight);
+    }
+    // endregion
+
     // region Data Loading
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -25,6 +35,11 @@ function App()
     const [testDF, setTestDF] = useState({});
 
     useEffect(() => {
+        // Component Did Mount
+        updateDimensions();
+        window.addEventListener('resize', updateDimensions);
+
+        // Load data from Kaggle
         setTimeout(() => {
             Promise.all([
                 dfd.readCSV('https://storage.googleapis.com/kagglesdsdata/competitions/3136/26502/train.csv?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1649563698&Signature=UgGDbFB6ErcTKADFFxWcvFLzzkvfYyx%2FX14YlDvZ8MfNS12s66rfHzye4%2FYbswT0r3hgsmfkfUdAKV4LIDrNhmnsT0eI8gR7l2E8q9YFl5VQFiaS9An2eSal%2BtEeT54gPtsCprl0NCsVDwA9Fs7r1Zjvdol65quyo1StXNkgVf08o7H5rWis0sfc71YqKjh8i4XfHZ1xqE%2B5KCchH8M3%2BFQeSIsNpxinVbGMw4LQ5iZ82NPlCKa5Lg5QFsuOV7AT3K0cNYwOl7G9CLmIcZ%2Fi%2BmDRbkN%2BNcIqASwjfJlZiJfH6bYWXZPk9tVfqty6RUQEFnbizcd%2BV71G9SXWHvdJ%2Bw%3D%3D&response-content-disposition=attachment%3B+filename%3Dtrain.csv'),
@@ -41,6 +56,9 @@ function App()
                     setError(error.message);
                 });
         }, 3500);
+
+        // Component Will Unmount
+        return(() => window.removeEventListener('resize', updateDimensions));
     }, []);
     // endregion
 
@@ -74,7 +92,7 @@ function App()
                         </Text>
                     </View>
                     :
-                    <View style={{ flex: '1 1 auto', width: 1000, alignSelf: 'center' }}>
+                    <View style={{ flex: '1 1 auto', width: windowWidth > 1064 ? 1000 : '90%', alignSelf: 'center' }}>
                         <DataDescription df={df} testDF={testDF}/>
                         <MissingData df={df} testDF={testDF}/>
                         <SurvivedDistribution df={df} testDF={testDF}/>
